@@ -7,5 +7,6 @@
 using namespace std;
 
 int main() {
+    parfume_bazaar::Admin admin("admin");
     parfume_bazaar::printHelloWorld();
 }
