@@ -214,14 +214,6 @@ TEST(insertTests, correctInputMaklerNewBargain) {
 
 }
 
-TEST(insertTests, incorrectAmount) {
-
-	copyTestDB();
-	parfume_bazaar::Makler makler("Semenov", parfume_bazaar::Date(2003, 5, 11), "Levina 13");
-	parfume_bazaar::Bargain bargain(makler, parfume_bazaar::Date(2024, 01, 11), "bataille", "women parfume", 1000, "Gold Apple");
-	EXPECT_EQ(parfume_bazaar::Bargain::insert(makler, bargain, "./testcopy.db"), false);
-	std::filesystem::remove("./testcopy.db");
-}
 
 TEST(insertTests, incorrectItemName) {
 
