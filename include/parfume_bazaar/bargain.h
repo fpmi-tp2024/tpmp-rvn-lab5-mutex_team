@@ -10,6 +10,7 @@
 #include <vector>
 #include "parfume_bazaar/date.h"
 #include "parfume_bazaar/makler.h"
+#include "sql/sqlite3.h"
 
 namespace parfume_bazaar {
     class Bargain {
@@ -50,17 +51,17 @@ namespace parfume_bazaar {
         }
 
         //используется в ф-ции insert, обновляет таблицу статистики после внесения новой сделки в бд
-        static void updateMaklersStatistics();
+        static bool updateMaklersStatistics(Makler& makler, Bargain& bargain, sqlite3* db);
 
         //будет вызываться в UI при проведении маклером новой сделки
         //Перед тем, как добавить в таблицу проверяет, есть ли такой товар с таким типом и хватает ли его по кол-ву
-        static void insert(Makler& makler, Bargain& bargain);
+        static bool insert(Makler& makler, Bargain& bargain, const char* db_path = "./parfume.db");
 
         //обновление сделки не будет, потому что это ломает суть уже обработанной статистики
 
         //будет вызываться при удалении сделок до некоторой даты для определенного маклера (используется в ф-ции в пункте 5)
         //что-то типо DELETE ... WHERE date<=bargain.date and makler.name == makler_name
-        static void removeBeforeDate(Makler& makler, Date& date);
+        static bool removeBeforeDate(Makler& makler, Date& date, const char* db_path = "./parfume.db");
     };
 }
 

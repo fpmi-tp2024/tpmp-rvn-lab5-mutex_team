@@ -9,6 +9,8 @@
 #include <string>
 
 namespace parfume_bazaar {
+
+
     class Date {
     private:
         int year;
@@ -17,9 +19,11 @@ namespace parfume_bazaar {
     public:
         explicit Date(std::string sql_date_text);
 
-        explicit Date(int year, int month, int day)
-                : year(year), month(month), day(day) {
-        }
+        Date() : year(0), month(0), day(0) {};
+
+        explicit Date(int year, int month, int day);
+
+        
 
         int getYear() {
             return year;
@@ -35,6 +39,7 @@ namespace parfume_bazaar {
 
         //возвращает валидную строку-дату для вставки в таблицу
         std::string toSqliteFormat();
+        static bool checkDate(int year, int month, int day);
     };
 }
 

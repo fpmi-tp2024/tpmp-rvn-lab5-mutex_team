@@ -10,9 +10,9 @@
 #include <vector>
 #include "parfume_bazaar/date.h"
 #include "parfume_bazaar/admin.h"
+#include "sql/sqlite3.h"
 
 namespace parfume_bazaar {
-
     class Item {
     private:
         std::string name; //уникальное в таблице
@@ -51,16 +51,16 @@ namespace parfume_bazaar {
         }
 
         //будет вызываться в UI при регистрации админом нового товара
-        static void insert(Admin& admin, Item& item);
+        static bool insert(Admin& admin, Item& item, const char* db_path = "./parfume.db");
 
         //будет вызываться в UI при обновлении админом товара (используется в пункте 5)
         //что-то типо SET ... WHERE itemName==item.name
-        static void update(Admin& admin, std::string itemName, int amount);
+        static bool update(Admin& admin, std::string itemName, int amount, const char* db_path = "./parfume.db");
 
         //будет вызываться в UI при удалении админом товара (соответственно удалить все записи из
         // других таблиц, в которых есть ключ на этот товар)
         //что-то типо DELETE ... WHERE name==item.name
-        static void remove(Admin& admin, std::string itemName);
+        static bool remove(Admin& admin, std::string itemName, const char* db_path = "./parfume.db");
     };
 }
 
