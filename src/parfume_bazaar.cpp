@@ -104,7 +104,7 @@ namespace parfume_bazaar {
             return std::vector <std::string> ();
         }
 
-        std::string query = "SELECT item_name, SUM(Bargain.amount), SUM(Bargain.amount * Item.price) AS Total FROM Bargain JOIN Item ON Bargain.item_name = Item.name GROUP BY item_name;";
+        std::string query = "SELECT item_name, SUM(Bargain.amount), SUM(Bargain.amount * Item.price) AS Total FROM Bargain JOIN Item ON Bargain.item_name = Item.name GROUP BY item_name WHERE Bargain.date BETWEEN '" + startDate.toSqliteFormat() + "' AND '" + endDate.toSqliteFormat() + "';";
         
         sqlite3_stmt* stmt;
 
@@ -204,7 +204,7 @@ namespace parfume_bazaar {
 
         std::pair output = std::make_pair(mostPopular, std::vector <std::string>());
 
-        query = "SELECT firm_buyer_name, SUM(Bargain.amount), SUM(Bargain.amount * Item.price) FROM Bargain JOIN Item ON Bargain.item_type = Item.type WHERE Bargain.item_type = '" + mostPopular + "' GROUP BY Bargain.firm_buyer_name ;";
+        query = "SELECT firm_buyer_name, SUM(Bargain.amount), SUM(Bargain.amount * Item.price) FROM Bargain JOIN Item ON Bargain.item_type = Item.type WHERE Bargain.item_type = '" + mostPopular + "' GROUP BY Bargain.firm_buyer_name WHERE Bargain.date BETWEEN '" + startDate.toSqliteFormat() + "' AND '" + endDate.toSqliteFormat() + "';";
       
         rc = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
         if (rc != SQLITE_OK) {
@@ -261,7 +261,7 @@ namespace parfume_bazaar {
         }
         sqlite3_finalize(stmt);
 
-        query = "SELECT firm_buyer_name FROM Bargain WHERE makler_surname = '" + mostPopular + "';";
+        query = "SELECT firm_buyer_name FROM Bargain WHERE makler_surname = '" + mostPopular + "' WHERE Bargain.date BETWEEN '" + startDate.toSqliteFormat() + "' AND '" + endDate.toSqliteFormat() + "';";
 
         rc = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
         if (rc != SQLITE_OK) {
