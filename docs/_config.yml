@@ -1,0 +1,8 @@
+title: Парфюмерный базар
+author: Гончаров Сергей, Довгий Александр, Шрубок Анна, Игнатчик Ульяна
+description: > # this means to ignore newlines until "baseurl:"
+  Проект "Парфюмерный базар"
+
+show_excerpts: true
+
+theme: jekyll-theme-cayman
