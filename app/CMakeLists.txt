@@ -1,0 +1,2 @@
+add_executable(parfume_bazaar_app parfume_bazaar_app.cpp)
+target_link_libraries(parfume_bazaar_app PRIVATE parfume_bazaar_lib)
